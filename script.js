@@ -19,6 +19,7 @@ equalsButton.addEventListener('click', () => {
     secondNumber = parseFloat(bottomDisplay.innerText)
     result = operate(operator, firstNumber, secondNumber)
     topDisplay.innerText += secondNumber + " ="
+    console.log(result)
     bottomDisplay.innerText = result
     firstNumber = NaN
     secondNumber = NaN
@@ -102,6 +103,7 @@ operatorButtons.forEach(button => {
         }
         topDisplay.innerText = firstNumber + " " + operator + " "
         bottomDisplay.innerText = ''
+        decimalButton.disabled = false
     })
 });
 
