@@ -54,7 +54,7 @@ digitButtons.forEach((button) => {
 });
 
 function operate(operator, firstNumber, secondNumber) {
-  switch (operate) {
+  switch (operator) {
     case "+":
       return add(firstNumber, secondNumber);
     case "-":
@@ -79,5 +79,29 @@ function multiply(first, second) {
 }
 
 function divide(first, second) {
-  return first / 2;
+  return first / second;
 }
+
+const additionButton = document.querySelector('#add')
+const subtractionButton = document.querySelector('#subtract')
+const multiplyButton = document.querySelector('#multiply')
+const divisionButton = document.querySelector('#divide')
+
+const operatorButtons = document.querySelectorAll('.operand')
+
+
+operatorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        operator = button.value
+        if (isNaN(firstNumber)) {
+            firstNumber = parseFloat(bottomDisplay.innerText)
+        } else {
+            secondNumber = parseFloat(bottomDisplay.innerText)
+            firstNumber = operate(operator, firstNumber, secondNumber)
+            secondNumber = NaN
+        }
+        topDisplay.innerText = firstNumber + " " + operator + " "
+        bottomDisplay.innerText = ''
+    })
+});
+
