@@ -24,7 +24,10 @@ equalsButton.addEventListener('click', () => {
     secondNumber = NaN
 })
 
-decimalButton.addEventListener('click', () => decimalButton.disabled = true)
+decimalButton.addEventListener('click', () => {
+    decimalButton.disabled = true
+    bottomDisplay.innerText += '.'
+})
 
 function clear() {
     bottomDisplay.innerText = "0"
