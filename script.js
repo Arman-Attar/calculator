@@ -8,13 +8,37 @@ const digitButtons = document.querySelectorAll(
 const equalsButton = document.querySelector('#equals') 
 const bottomDisplay = document.querySelector(".bottom-display")
 const topDisplay = document.querySelector(".top-display")
+const decimalButton= document.querySelector('.decimal')
+const clearButton = document.querySelector('.clear')
+const clearAllButton = document.querySelector('.all-clear')
 
+clearButton.addEventListener('click', () => clear())
+clearAllButton.addEventListener('click', () => clearAll())
 
 equalsButton.addEventListener('click', () => {
+    secondNumber = parseFloat(bottomDisplay.innerText)
     result = operate(operator, firstNumber, secondNumber)
     topDisplay.innerText += secondNumber + " ="
     bottomDisplay.innerText = result
+    firstNumber = NaN
+    secondNumber = NaN
 })
+
+decimalButton.addEventListener('click', () => decimalButton.disabled = true)
+
+function clear() {
+    bottomDisplay.innerText = "0"
+    decimalButton.disabled = false
+}
+
+function clearAll() {
+    clear()
+    firstNumber = NaN
+    secondNumber = NaN
+    result = 0
+    topDisplay.innerText = ''
+    operator = ''
+}
 
 digitButtons.forEach((button) => {
   button.addEventListener("click", () => {
