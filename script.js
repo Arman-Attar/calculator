@@ -18,8 +18,7 @@ clearAllButton.addEventListener('click', () => clearAll())
 equalsButton.addEventListener('click', () => {
     secondNumber = parseFloat(bottomDisplay.innerText)
     result = operate(operator, firstNumber, secondNumber)
-    topDisplay.innerText += secondNumber + " ="
-    console.log(result)
+    topDisplay.innerText += " " + secondNumber + " ="
     bottomDisplay.innerText = result
     firstNumber = NaN
     secondNumber = NaN
@@ -92,18 +91,54 @@ const operatorButtons = document.querySelectorAll('.operand')
 
 
 operatorButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        operator = button.value
-        if (isNaN(firstNumber)) {
-            firstNumber = parseFloat(bottomDisplay.innerText)
-        } else {
-            secondNumber = parseFloat(bottomDisplay.innerText)
-            firstNumber = operate(operator, firstNumber, secondNumber)
-            secondNumber = NaN
-        }
-        topDisplay.innerText = firstNumber + " " + operator + " "
-        bottomDisplay.innerText = ''
-        decimalButton.disabled = false
-    })
-});
+    button.addEventListener('click', () => operatorPressed(button.value))
+})
 
+function operatorPressed(operatorButton) {
+    operator = operatorButton
+    if (isNaN(firstNumber)) {
+        firstNumber = parseFloat(bottomDisplay.innerText)
+    } else {
+        secondNumber = parseFloat(bottomDisplay.innerText)
+        firstNumber = operate(operator, firstNumber, secondNumber)
+        secondNumber = NaN
+    }
+    topDisplay.innerText = firstNumber + " " + operator + " "
+    bottomDisplay.innerText = ''
+    decimalButton.disabled = false
+}
+
+document.addEventListener('keydown', (event) => {
+    switch (event.key) {
+        case 'Enter':
+            operatorPressed('=')
+            break;
+        case '*':
+            operatorPressed('*')
+            break;
+        case '/':
+            operatorPressed('/')
+            break;
+        case '+':
+            operatorPressed('+')
+            break;
+        case '-':
+            operatorPressed('-')
+            break;     
+        case 'Backspace':
+            if (bottomDisplay.innerText != '' && bottomDisplay.innerText == '0') {
+                bottomDisplay.innerText = bottomDisplay.innerText.slice(0, -1);
+            }
+         default:
+            if (!isNaN(parseFloat(event.key))) {
+                if (operator == '') {
+                    if (bottomDisplay.innerText == '0') {
+                        bottomDisplay.innerText = ''
+                    }
+                    bottomDisplay.innerText += event.key
+                } else {
+                    bottomDisplay.innerText += event.key
+                }
+            }  
+    }
+})
